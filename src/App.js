@@ -17,6 +17,7 @@ const ProtectedRoute = ({ children }) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   if (!token || !user) {
+    console.log("Unauthorized access. Redirecting to /login...");
     return <Navigate to="/login" replace />;
   }
 
@@ -26,9 +27,10 @@ const ProtectedRoute = ({ children }) => {
 // Dashboard Router Component
 const DashboardRouter = () => {
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log("DashboardRouter: User ->", user);
 
   if (!user) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace />;
   }
 
   return user.role === "student" ? <StudentDashboard /> : <TeacherDashboard />;
@@ -56,7 +58,7 @@ const App = () => {
             />
 
             {/* Default Route */}
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/" element={<Navigate to="/login" replace />} />
 
             {/* 404 Route */}
             <Route

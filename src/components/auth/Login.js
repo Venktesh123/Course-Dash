@@ -24,10 +24,18 @@ const Login = () => {
         "http://localhost:5000/api/auth/login",
         formData
       );
+
+      console.log("Login Successful:", response.data);
+
+      // Store user data properly
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("role", response.data.user.role);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
+      // Navigate to dashboard
       navigate("/dashboard");
+      window.location.reload(); // Ensure reloading to reflect auth changes
     } catch (error) {
+      console.error("Login Error:", error);
       setError(error.response?.data?.message || "Login failed");
     }
   };
@@ -93,4 +101,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;
