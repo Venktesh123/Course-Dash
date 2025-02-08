@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
-import Navbar from "./components/layout/Navbar";
+import Navbar from "./components/layout/NavBar";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import TeacherDashboard from "./components/dashboard/TeacherDashboard";
