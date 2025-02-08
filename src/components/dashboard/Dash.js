@@ -44,11 +44,11 @@ const MyDashboard = () => {
         {/* User Info */}
         <div className="grid grid-cols-2 gap-4 mt-4">
           <div className="bg-white p-4 shadow rounded">
-            <h3 className="font-semibold">DEMO_STUDENT_KIIT_BBA</h3>
-            <p className="text-gray-600">DEMO_STUDENT_KIIT_BBA@mailinator.in</p>
+            <h3 className="font-semibold">DEMO_STUDENT_WILP P</h3>
+            <p className="text-gray-600">DEMO_STUDENT_WILP P@mailinator.in</p>
           </div>
           <div className="bg-white p-4 shadow rounded">
-            <h3 className="font-semibold">BBA</h3>
+            <h3 className="font-semibold">WILP</h3>
             <p className="text-gray-600">July-22</p>
             <p className="text-blue-500 cursor-pointer">
               Batchmates: VIEW & CONNECT

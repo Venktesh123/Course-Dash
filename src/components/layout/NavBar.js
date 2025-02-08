@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import logo from "./logo.png"; // Update the path to your logo
+import logo from "./logo1.png"; // Update the path to your logo
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -18,7 +18,7 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/">
-              <img src={logo} alt="Logo" className="h-10 w-auto" />
+              <img src={logo} alt="Logo" className="h-16 w-16" />
             </Link>
           </div>
 
