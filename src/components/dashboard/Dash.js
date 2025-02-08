@@ -13,7 +13,7 @@ const MyDashboard = () => {
       {/* Sidebar */}
       {/* <div className="w-64 bg-white shadow-md p-4">
         <h2 className="text-lg font-semibold text-green-700">
-          Kalinga Institute
+          WILP Program
         </h2>
         <ul className="mt-4">
           <li className="p-2 text-gray-700 hover:bg-gray-200 cursor-pointer flex items-center">

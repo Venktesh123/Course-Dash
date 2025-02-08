@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import logo from "./logo.png"; // Update the path to your logo
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -16,8 +17,8 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="text-2xl font-bold text-blue-600">
-              LectureHub
+            <Link to="/">
+              <img src={logo} alt="Logo" className="h-10 w-auto" />
             </Link>
           </div>
 
