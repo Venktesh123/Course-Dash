@@ -1,96 +1,62 @@
-import React, { useState } from "react";
-import { createMeeting, loginWithGoogle } from "./apiService";
-import "./Meeting.css"; // Import the CSS
+import React from "react";
+import "./Meeting.css";
+
+const subjectMeetings = [
+  {
+    subject: "Mathematics",
+    link: "https://meet.google.com/abc-defg-hij",
+    time: "6:00 PM",
+  },
+  {
+    subject: "Science",
+    link: "https://meet.google.com/klm-nopq-rst",
+    time: "7:00 PM",
+  },
+  {
+    subject: "History",
+    link: "https://meet.google.com/uvw-xyzA-BCD",
+    time: "8:00 PM",
+  },
+  {
+    subject: "English",
+    link: "https://meet.google.com/zgo-tvwm-dxd",
+    time: "7:00 PM",
+  },
+];
+
+const SubjectMeeting = ({ subject, link, time }) => {
+  return (
+    <div className="meeting-card">
+      <h2 className="meeting-title">{subject} Meeting</h2>
+      <p className="meeting-time">
+        <strong>Schedule:</strong> {time}
+      </p>
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="meeting-button"
+      >
+        Join {subject} Meeting
+      </a>
+    </div>
+  );
+};
 
 const CreateMeeting = () => {
-  const [summary, setSummary] = useState("");
-  const [description, setDescription] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
-  const [attendees, setAttendees] = useState("");
-  const [meetingLink, setMeetingLink] = useState("");
-
-  const handleCreateMeeting = async () => {
-    const meetingDetails = {
-      summary,
-      description,
-      startTime,
-      endTime,
-      attendees: attendees.split(",").map((email) => email.trim()),
-    };
-
-    try {
-      const link = await createMeeting(meetingDetails);
-      setMeetingLink(link);
-    } catch (error) {
-      alert("Failed to create meeting!");
-    }
-  };
-
   return (
-    <div className="form-container">
-      <h1>Create Google Meet</h1>
-      <div className="form-group">
-        <label>Summary:</label>
-        <input
-          type="text"
-          value={summary}
-          onChange={(e) => setSummary(e.target.value)}
-          className="input-field"
-        />
+    <div className="meeting-container">
+      <h1 className="meeting-header">Subject-wise Google Meet Links</h1>
+      <div className="meeting-grid">
+        {subjectMeetings.map(({ subject, link, time }) => (
+          <SubjectMeeting
+            key={subject}
+            subject={subject}
+            link={link}
+            time={time}
+          />
+        ))}
       </div>
-      <div className="form-group">
-        <label>Description:</label>
-        <input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="input-field"
-        />
-      </div>
-      <div className="form-group">
-        <label>Start Time:</label>
-        <input
-          type="datetime-local"
-          value={startTime}
-          onChange={(e) => setStartTime(e.target.value)}
-          className="input-field"
-        />
-      </div>
-      <div className="form-group">
-        <label>End Time:</label>
-        <input
-          type="datetime-local"
-          value={endTime}
-          onChange={(e) => setEndTime(e.target.value)}
-          className="input-field"
-        />
-      </div>
-      <div className="form-group">
-        <label>Attendees (comma-separated emails):</label>
-        <input
-          type="text"
-          value={attendees}
-          onChange={(e) => setAttendees(e.target.value)}
-          className="input-field"
-        />
-      </div>
-      <button onClick={handleCreateMeeting} className="submit-button">
-        Create Meeting
-      </button>
-
-      {meetingLink && (
-        <div className="meeting-link">
-          <h2>Meeting Link:</h2>
-          <a href={meetingLink} target="_blank" rel="noopener noreferrer">
-            Join Meeting
-          </a>
-        </div>
-      )}
-
-      <button onClick={loginWithGoogle} className="google-login-button">
-        Login with Google
-      </button>
     </div>
   );
 };

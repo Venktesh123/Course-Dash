@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import logo from "./logo1.png"; // Update the path to your logo
+import logo from "./logo2.png"; // Update the path to your logo
 
 const Navbar = () => {
   const { user, logout } = useAuth();
