@@ -5,79 +5,73 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Navbar from "./components/layout/NavBar";
+import { AuthProvider } from "./context/AuthContext";
+import PrivateRoute from "./components/PrivateRoute";
+import Navbar from "./components/layout/Navbar";
 import Login from "./components/auth/Login";
-import Register from "./components/auth/Signup";
-import StudentDashboard from "./components/dashboard/StudentDashboard";
+import Register from "./components/auth/Register";
 import TeacherDashboard from "./components/dashboard/TeacherDashboard";
-
-// Protected Route Component
-const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem("token");
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  if (!token || !user) {
-    console.log("Unauthorized access. Redirecting to /login...");
-    return <Navigate to="/login" replace />;
-  }
-
-  return children;
-};
-
-// Dashboard Router Component
-const DashboardRouter = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  console.log("DashboardRouter: User ->", user);
-
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return user.role === "student" ? <StudentDashboard /> : <TeacherDashboard />;
-};
+import StudentDashboard from "./components/dashboard/StudentDashboard";
+import LectureUpload from "./components/lectures/LectureUpload";
+import LectureView from "./components/lectures/LectureView";
+import LectureList from "./components/lectures/LectureList";
 
 const App = () => {
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-100">
-        <Navbar />
-        <div className="container mx-auto px-4 py-8">
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-
-            {/* Protected Routes */}
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <DashboardRouter />
-                </ProtectedRoute>
-              }
-            />
-
-            {/* Default Route */}
-            <Route path="/" element={<Navigate to="/login" replace />} />
-
-            {/* 404 Route */}
-            <Route
-              path="*"
-              element={
-                <div className="text-center mt-20">
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    404 - Page Not Found
-                  </h2>
-                  <p className="mt-2 text-gray-600">
-                    The page you are looking for doesn't exist.
-                  </p>
-                </div>
-              }
-            />
-          </Routes>
+    <AuthProvider>
+      <Router>
+        <div className="min-h-screen bg-gray-50">
+          <Navbar />
+          <main className="container mx-auto px-4 py-8">
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route
+                path="/teacher/dashboard"
+                element={
+                  <PrivateRoute roles={["teacher"]}>
+                    <TeacherDashboard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/student/dashboard"
+                element={
+                  <PrivateRoute roles={["student"]}>
+                    <StudentDashboard />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/lecture/upload"
+                element={
+                  <PrivateRoute roles={["teacher"]}>
+                    <LectureUpload />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/lecture/:id"
+                element={
+                  <PrivateRoute>
+                    <LectureView />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/lectures"
+                element={
+                  <PrivateRoute>
+                    <LectureList />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="/" element={<Navigate to="/login" replace />} />
+            </Routes>
+          </main>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 };
 
