@@ -1,82 +1,100 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import * as lectureService from "../../services/lecture.service";
+import React from "react";
+import {
+  FaTachometerAlt,
+  FaBook,
+  FaLaptop,
+  FaCalendarCheck,
+  FaChalkboardTeacher,
+} from "react-icons/fa";
 
-const StudentDashboard = () => {
-  const [lectures, setLectures] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const fetchLectures = async () => {
-      try {
-        const response = await lectureService.getAllLectures();
-        setLectures(response.data.lectures);
-      } catch (err) {
-        setError("Failed to fetch lectures");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchLectures();
-  }, []);
-
-  if (loading)
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-      </div>
-    );
-
+const Dashboard = () => {
   return (
-    <div className="max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">
-        Student Dashboard
-      </h1>
+    <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
+      <div className="w-64 bg-white shadow-md p-4">
+        <h2 className="text-lg font-semibold text-green-700">
+          Kalinga Institute
+        </h2>
+        <ul className="mt-4">
+          <li className="p-2 text-gray-700 hover:bg-gray-200 cursor-pointer flex items-center">
+            <FaTachometerAlt className="mr-2" /> Dashboard
+          </li>
+          <li className="p-2 text-gray-700 hover:bg-gray-200 cursor-pointer flex items-center">
+            <FaBook className="mr-2" /> Courseware
+          </li>
+          <li className="p-2 text-gray-700 hover:bg-gray-200 cursor-pointer flex items-center">
+            <FaLaptop className="mr-2" /> E-Library
+          </li>
+          <li className="p-2 text-gray-700 hover:bg-gray-200 cursor-pointer flex items-center">
+            <FaCalendarCheck className="mr-2" /> My Attendance
+          </li>
+          <li className="p-2 text-gray-700 hover:bg-gray-200 cursor-pointer flex items-center">
+            <FaChalkboardTeacher className="mr-2" /> My Live Class / Discussion
+          </li>
+        </ul>
+      </div>
 
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-          {error}
+      {/* Main Content */}
+      <div className="flex-1 p-6">
+        {/* Header */}
+        <div className="flex justify-between items-center bg-white p-4 shadow-md">
+          <h1 className="text-xl font-semibold">My Dashboard</h1>
         </div>
-      )}
 
-      <div className="bg-white shadow rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">Available Lectures</h2>
-        {lectures.length === 0 ? (
-          <p className="text-gray-500">No lectures available.</p>
-        ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {lectures.map((lecture) => (
-              <div
-                key={lecture._id}
-                className="bg-white border rounded-lg overflow-hidden"
-              >
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-2">
-                    {lecture.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-4">
-                    {lecture.description.substring(0, 100)}...
-                  </p>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-gray-500">
-                      By {lecture.teacher.name}
-                    </span>
-                    <Link
-                      to={`/lecture/${lecture._id}`}
-                      className="text-indigo-600 hover:text-indigo-800"
-                    >
-                      Watch Lecture
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
+        {/* User Info */}
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <div className="bg-white p-4 shadow rounded">
+            <h3 className="font-semibold">DEMO_STUDENT_KIIT_BBA</h3>
+            <p className="text-gray-600">DEMO_STUDENT_KIIT_BBA@mailinator.in</p>
           </div>
-        )}
+          <div className="bg-white p-4 shadow rounded">
+            <h3 className="font-semibold">BBA</h3>
+            <p className="text-gray-600">July-22</p>
+            <p className="text-blue-500 cursor-pointer">
+              Batchmates: VIEW & CONNECT
+            </p>
+          </div>
+        </div>
+
+        {/* Course Progression */}
+        <div className="bg-white p-4 shadow rounded mt-4">
+          <div className="flex justify-between items-center">
+            <h2 className="font-semibold">Course Progression</h2>
+            <select className="border p-1 rounded">
+              <option>Semester-1</option>
+            </select>
+          </div>
+          <ul className="mt-2">
+            {[
+              { name: "Managerial Written Communication", progress: "8%" },
+              { name: "Business Economics-I", progress: "6%" },
+              { name: "Financial Accounting", progress: "2%" },
+              { name: "Psychology", progress: "0%" },
+              { name: "Business Computing", progress: "6%" },
+              { name: "Basic Mathematics", progress: "4%" },
+              { name: "Simulated Case Studies", progress: "0%" },
+              { name: "Gamified Quiz", progress: "0%" },
+            ].map((course, index) => (
+              <li key={index} className="flex justify-between border-b p-2">
+                <span>{course.name}</span>
+                <span>{course.progress}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Live Classes and Discussions */}
+        <div className="bg-white p-4 shadow rounded mt-4">
+          <div className="flex space-x-4">
+            <button className="border-b-2 border-green-500 text-green-700 pb-1">
+              LIVE CLASSES
+            </button>
+            <button className="text-gray-600">DISCUSSIONS</button>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
-export default StudentDashboard;
+
+export default Dashboard;
