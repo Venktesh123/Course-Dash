@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AttendanceCalendar from "./Attendence";
+import CreateMeeting from "./CreateMeeting";
 import {
   FaTachometerAlt,
   FaBook,
@@ -112,7 +113,12 @@ const Dashboard = () => {
           >
             <FaCalendarCheck className="mr-2" /> My Attendance
           </li>
-          <li className="p-2 text-gray-700 hover:bg-gray-200 cursor-pointer flex items-center">
+          <li
+            className={`p-2 text-gray-700 hover:bg-gray-200 cursor-pointer flex items-center ${
+              activeSection === "LiveClass" ? "bg-gray-300" : ""
+            }`}
+            onClick={() => setActiveSection("LiveClass")}
+          >
             <FaChalkboardTeacher className="mr-2" /> My Live Class / Discussion
           </li>
         </ul>
@@ -190,6 +196,7 @@ const Dashboard = () => {
             setSelectedSemester={setSelectedSemester}
           />
         )}
+        {activeSection === "LiveClass" && <CreateMeeting />}
       </div>
     </div>
   );
