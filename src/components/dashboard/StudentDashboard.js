@@ -13,23 +13,23 @@ const Courseware = ({ selectedSemester, setSelectedSemester }) => {
   const semesters = ["Semester 1", "Semester 2", "Semester 3", "Semester 4"];
   const courses = {
     "Semester 1": [
-      "Business Economics-I",
-      "Financial Accounting",
-      "Psychology",
+      "Fundamentals of Probability & Statistics 	XCT 1001	3	1	0	4",
+      "Engineering Materials ",
+      "Fluid Mechanics and Machineries ",
     ],
     "Semester 2": [
-      "Marketing Management",
-      "Operations Research",
-      "Business Law",
+      "Mechanics of Solids",
+      "Construction Planning, Control & Management",
+      "Sustainable and Smart Construction Techniques",
     ],
     "Semester 3": [
-      "Human Resource Management",
-      "Managerial Accounting",
-      "Macroeconomics",
+      "Financial and Cost Accounting in Construction",
+      "Construction Equipment, Plant and Machinery",
+      "Quality Assurance and Control in Construction",
     ],
     "Semester 4": [
-      "Strategic Management",
-      "Business Analytics",
+      "Pre-fabrication Construction Techniques",
+      "Computer Applications in Construction ",
       "Entrepreneurship",
     ],
   };
